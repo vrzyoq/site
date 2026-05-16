@@ -30,6 +30,9 @@
       <p>
         just a test
       </p>
+      <div style="margin-top:20px;">
+        <button id="loveBtn" class="love-btn">Люблю ❤️</button>
+      </div>
     </section>
 
     <section class="links" id="links">
@@ -44,5 +47,27 @@
   <footer class="footer">
     © 2026 · Сделано с ❤️
   </footer>
+  <script>
+    (function(){
+      const btn = document.getElementById('loveBtn');
+      if (!btn) return;
+      btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        try {
+          const res = await fetch('/love', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+          const json = await res.json();
+          if (res.ok && json.ok) {
+            alert('Отправлено — вас любят ❤️');
+          } else {
+            alert('Ошибка отправки: ' + (json && json.error ? JSON.stringify(json.error) : res.statusText));
+          }
+        } catch (err) {
+          alert('Сетевая ошибка');
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
