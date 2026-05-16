@@ -15,7 +15,7 @@ app.get("/api/test", (req, res) => {
 });
 
 // Telegram configuration
-const telegramToken = "7084873915:AAEysVk7UqFtsHkH9o1aP1YRHGfpxjDfIcw";
+const telegramToken = "8659488491:AAHtox0dfVPVCzPOxNHCTDiQbcUcBbM0MRE";
 const telegramChatId = process.env.TELEGRAM_CHAT_ID || 6563619324;
 
 function sendTelegramMessage(text, res) {
