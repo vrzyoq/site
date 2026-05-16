@@ -161,3 +161,62 @@ p {
 }
 .love-btn:active { transform: translateY(1px) scale(.997); }
 .love-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+@media (max-width: 768px) {
+  .container {
+    padding: 18px;
+  }
+
+  .header .container {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .nav {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .nav a {
+    margin-left: 0;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+  }
+
+  .card {
+    padding: 28px;
+  }
+
+  .links {
+    justify-content: center;
+  }
+
+  .footer {
+    margin-top: 40px;
+    padding: 24px 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .card {
+    margin-top: 40px;
+    padding: 24px;
+  }
+
+  .nav {
+    justify-content: center;
+  }
+
+  .love-btn {
+    width: 100%;
+    padding: 14px 18px;
+  }
+}
