@@ -56,9 +56,54 @@ body {
   box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-h1 {
-  font-size: 2.4rem;
-  margin-bottom: 10px;
+.contact-card {
+  margin-top: 40px;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #d8d8e7;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.05);
+  color: #f3f3ff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(255,255,255,0.4);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.love-btn {
+  background: linear-gradient(90deg,#ff5a79,#ff9a9e);
+  color: #111;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255,90,121,0.18);
+  transition: transform .12s ease, opacity .12s ease;
 }
 
 h2 {

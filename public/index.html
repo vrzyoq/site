@@ -13,7 +13,8 @@
       <span class="logo">Portfolio</span>
       <nav class="nav">
         <a href="#about">Über mich</a>
-        <a href="#links">Kontakte</a>
+        <a href="#contact">Контакты</a>
+        <a href="#links">Ссылки</a>
       </nav>
     </div>
   </header>
@@ -43,11 +44,30 @@
     </div>
   </section>
 
+    <section class="card contact-card" id="contact">
+      <h2>Kontakt</h2>
+      <form id="contactForm">
+        <label>
+          Ihre Name
+          <input type="text" name="name" placeholder="Имя" required />
+        </label>
+        <label>
+          Telegram Username
+          <input type="text" name="from" placeholder="Telegram Username" required />
+        </label>
+        <label>
+          Nachricht
+          <textarea name="message" rows="5" placeholder="Ihre Nachricht" required></textarea>
+        </label>
+        <button type="submit" class="love-btn">Senden</button>
+      </form>
+    </section>
+
     <section class="links" id="links">
       <a href="https://t.me/libert117" target="_blank">Telegram</a>
       <a href="https://github.com/vrzyoq" target="_blank">GitHub</a>
       <a href="https://discord.gg/chHxvDCCJb" target="_blank">Discord</a>
-        <a href="https://www.instagram.com/hghaiaoal" target="_blank">Instagram</a>
+      <a href="https://www.instagram.com/hghaiaoal" target="_blank">Instagram</a>
       <a href="mailto:serhiikurbachov@gmail.com">Email</a>
     </section>
   </main>
@@ -58,23 +78,59 @@
   <script>
     (function(){
       const btn = document.getElementById('loveBtn');
-      if (!btn) return;
-      btn.addEventListener('click', async () => {
-        btn.disabled = true;
-        try {
-          const res = await fetch('/love', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
-          const json = await res.json();
-          if (res.ok && json.ok) {
-            alert('Отправлено — вас любят ❤️');
-          } else {
-            alert('Ошибка отправки: ' + (json && json.error ? JSON.stringify(json.error) : res.statusText));
+      if (btn) {
+        btn.addEventListener('click', async () => {
+          btn.disabled = true;
+          try {
+            const res = await fetch('/love', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+            const json = await res.json();
+            if (res.ok && json.ok) {
+              alert('Отправлено — вас любят ❤️');
+            } else {
+              alert('Ошибка отправки: ' + (json && json.error ? JSON.stringify(json.error) : res.statusText));
+            }
+          } catch (err) {
+            alert('Сетевая ошибка');
+          } finally {
+            btn.disabled = false;
           }
-        } catch (err) {
-          alert('Сетевая ошибка');
-        } finally {
-          btn.disabled = false;
-        }
-      });
+        });
+      }
+
+      const contactForm = document.getElementById('contactForm');
+      if (contactForm) {
+        contactForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const formData = new FormData(contactForm);
+          const body = {
+            name: formData.get('name'),
+            from: formData.get('from'),
+            message: formData.get('message')
+          };
+
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          if (submitBtn) submitBtn.disabled = true;
+
+          try {
+            const res = await fetch('/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body)
+            });
+            const json = await res.json();
+            if (res.ok && json.ok) {
+              alert('Спасибо! Сообщение отправлено в Telegram.');
+              contactForm.reset();
+            } else {
+              alert('Ошибка отправки: ' + (json && json.error ? JSON.stringify(json.error) : res.statusText));
+            }
+          } catch (err) {
+            alert('Сетевая ошибка');
+          } finally {
+            if (submitBtn) submitBtn.disabled = false;
+          }
+        });
+      }
     })();
   </script>
 </body>

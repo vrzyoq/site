@@ -14,21 +14,19 @@ app.get("/api/test", (req, res) => {
     res.json({ message: "backend works" });
 });
 
-// POST /love -> send Telegram message via Bot API
-app.post('/love', (req, res) => {
-    const token = "7084873915:AAEysVk7UqFtsHkH9o1aP1YRHGfpxjDfIcw"
-    const chatId = 6563619324;
+// Telegram configuration
+const telegramToken = "7084873915:AAEysVk7UqFtsHkH9o1aP1YRHGfpxjDfIcw";
+const telegramChatId = process.env.TELEGRAM_CHAT_ID || 6563619324;
 
-    if (!token || !chatId) {
+function sendTelegramMessage(text, res) {
+    if (!telegramToken || !telegramChatId) {
         return res.status(500).json({ ok: false, error: 'Telegram config missing. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID.' });
     }
 
-    const text = 'Кто-то нажал "Люблю" на вашем сайте ❤️';
-    const postData = JSON.stringify({ chat_id: chatId, text });
-
+    const postData = JSON.stringify({ chat_id: telegramChatId, text });
     const options = {
         hostname: 'api.telegram.org',
-        path: `/bot${token}/sendMessage`,
+        path: `/bot${telegramToken}/sendMessage`,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -60,6 +58,21 @@ app.post('/love', (req, res) => {
 
     reqApi.write(postData);
     reqApi.end();
+}
+
+// POST /love -> send Telegram message via Bot API
+app.post('/love', (req, res) => {
+    sendTelegramMessage('Кто-то нажал "Люблю" на вашем сайте ❤️', res);
+});
+
+app.post('/contact', (req, res) => {
+    const { name, from, message } = req.body || {};
+    if (!name || !from || !message) {
+        return res.status(400).json({ ok: false, error: 'Заполните все поля формы.' });
+    }
+
+    const text = `Новое сообщение с сайта:\nИмя: ${name}\nКонтакт: ${from}\nСообщение:\n${message}`;
+    sendTelegramMessage(text, res);
 });
 
 // fallback to SPA
