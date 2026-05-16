@@ -5,15 +5,18 @@ const app = express();
 const PORT = 3000;
 
 // статика
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
+app.use(express.static(path.join(__dirname, "public")));
 
 // API
 app.get("/api/test", (req, res) => {
     res.json({
         message: "backend works"
     });
+});
+
+// fallback
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // запуск
