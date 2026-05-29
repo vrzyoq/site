@@ -22,7 +22,7 @@
   <main class="container">
     <section class="card" id="about">
     
-    <h1>Hallo 👋</h1>
+    <h1>Hi</h1>
     <h2>Wer ich bin und was ich mache</h2>
 
     <p>
@@ -39,9 +39,7 @@
       Schritt für Schritt sammle ich Erfahrung und verbessere meine Fähigkeiten.
     </p>
 
-    <div style="margin-top:20px;">
-      <button id="loveBtn" class="love-btn">.</button>
-    </div>
+    
   </section>
 
     <section class="card contact-card" id="contact">
@@ -77,26 +75,6 @@
   </footer>
   <script>
     (function(){
-      const btn = document.getElementById('loveBtn');
-      if (btn) {
-        btn.addEventListener('click', async () => {
-          btn.disabled = true;
-          try {
-            const res = await fetch('/love', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
-            const json = await res.json();
-            if (res.ok && json.ok) {
-              alert('Отправлено — вас любят ❤️');
-            } else {
-              alert('Ошибка отправки: ' + (json && json.error ? JSON.stringify(json.error) : res.statusText));
-            }
-          } catch (err) {
-            alert('Сетевая ошибка');
-          } finally {
-            btn.disabled = false;
-          }
-        });
-      }
-
       const contactForm = document.getElementById('contactForm');
       if (contactForm) {
         contactForm.addEventListener('submit', async (event) => {
