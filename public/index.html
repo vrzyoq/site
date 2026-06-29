@@ -16,8 +16,20 @@
 <body>
   <main class="container">
     <section class="card" id="about">
-      <h1>/</h1>
+      <h1 id="animated-slash"><span class="slash">/</span><span class="dots"></span></h1>
     </section>
   </main>
+  <script>
+    const dots = document.querySelector('#animated-slash .dots');
+    
+    const frames = ['', '.', '..', '...'];
+
+    let frameIndex = 0;
+
+    setInterval(() => {
+      frameIndex = (frameIndex + 1) % frames.length;
+      dots.textContent = frames[frameIndex];
+    }, 1000);
+  </script>
 </body>
 </html>

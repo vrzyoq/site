@@ -61,7 +61,15 @@ body {
 }
 
 .card h1 {
-  color: red
+  color: red;
+}
+
+.card h1 .slash {
+  color: red;
+}
+
+.card h1 .dots {
+  color: red;
 }
 
 .contact-card {
